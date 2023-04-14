@@ -20,7 +20,7 @@ const LoginPage = () => {
 
       if (response.ok) {
         const { jwt } = await response.json();
-        Cookies.set('jwt', jwt);
+        Cookies.set('jwt', jwt, { expires: 7, path: '/' });
         router.push('/profile');
       } else {
         // 处理登录失败的情况
@@ -31,7 +31,7 @@ const LoginPage = () => {
       // 如果username=admin，password=admin，登录成功
       if (username === 'admin' && password === 'hugogpt') {
         const jwt = '123456';
-        Cookies.set('jwt', jwt);
+        Cookies.set('jwt', jwt, { expires: 7, path: '/' });
         router.push('/profile');
       }
     }

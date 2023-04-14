@@ -8,7 +8,6 @@ import {
   ReconnectInterval,
   createParser,
 } from 'eventsource-parser';
-import Cookies from 'js-cookie';
 
 export class OpenAIError extends Error {
   type: string;
@@ -30,13 +29,12 @@ export const OpenAIStream = async (
   temperature : number,
   key: string,
   messages: Message[],
+  jwt: string
 ) => {
   let url = `${OPENAI_API_HOST}/v1/chat/completions`;
   if (OPENAI_API_TYPE === 'azure') {
     url = `${OPENAI_API_HOST}/openai/deployments/${AZURE_DEPLOYMENT_ID}/chat/completions?api-version=${OPENAI_API_VERSION}`;
   }
-
-  const jwt = Cookies.get('jwt')
 
   if (!jwt) {
     // 返回一个包含 "请先登录" 消息的 ReadableStream

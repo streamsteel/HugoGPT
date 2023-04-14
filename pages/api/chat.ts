@@ -8,6 +8,7 @@ import wasm from '../../node_modules/@dqbd/tiktoken/lite/tiktoken_bg.wasm?module
 
 import tiktokenModel from '@dqbd/tiktoken/encoders/cl100k_base.json';
 import { Tiktoken, init } from '@dqbd/tiktoken/lite/init';
+import cookie from 'cookie';
 
 export const config = {
   runtime: 'edge',
@@ -52,7 +53,11 @@ const handler = async (req: Request): Promise<Response> => {
 
     encoding.free();
 
-    const stream = await OpenAIStream(model, promptToSend, temperatureToUse, key, messagesToSend);
+    // get jwt from cookie on server side
+    const cookies = cookie.parse(req.headers.get("cookie") || '');
+    const jwt: string = cookies.jwt;
+
+    const stream = await OpenAIStream(model, promptToSend, temperatureToUse, key, messagesToSend, jwt);
 
     return new Response(stream);
   } catch (error) {

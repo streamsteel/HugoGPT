@@ -48,3 +48,8 @@ logs:
 push:
 	docker tag hugo-gpt:latest ${DOCKER_USER}/hugo-gpt:${DOCKER_TAG}
 	docker push ${DOCKER_USER}/hugo-gpt:${DOCKER_TAG}
+
+gpsuh:
+	git add -A
+	git commit -m "update + $(datetime)"
+	git push
