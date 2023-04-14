@@ -1,0 +1,60 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: hugo-gpt
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  namespace: hugo-gpt
+  name: hugo-gpt
+type: Opaque
+data:
+  OPENAI_API_KEY: <base64 encoded key>
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: hugo-gpt
+  name: hugo-gpt
+  labels:
+    app: hugo-gpt
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hugo-gpt
+  template:
+    metadata:
+      labels:
+        app: hugo-gpt
+    spec:
+      containers:
+        - name: hugo-gpt
+          image: <docker user>/hugo-gpt:latest
+          resources: {}
+          ports:
+            - containerPort: 3000
+          env:
+            - name: OPENAI_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: hugo-gpt
+                  key: OPENAI_API_KEY
+---
+kind: Service
+apiVersion: v1
+metadata:
+  namespace: hugo-gpt
+  name: hugo-gpt
+  labels:
+    app: hugo-gpt
+spec:
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 3000
+  selector:
+    app: hugo-gpt
+  type: ClusterIP
