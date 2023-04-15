@@ -9,6 +9,14 @@ const LoginPage = () => {
   const [password, setPassword] = useState('');
   const router = useRouter();
 
+  const handleBack = () => {
+    router.push('/');
+  };
+
+  const handleRegiste = () => {
+    router.push('/registe');
+  };
+
   const handleLogin = async () => {
     try {
       // 在此处调用您的登录 API，替换为您的实际登录 URL
@@ -39,6 +47,17 @@ const LoginPage = () => {
 
   return (
     <div className="bg-white min-h-screen flex items-center justify-center">
+      <div className="bg-white min-h-screen flex items-center justify-center">
+        <div className="absolute top-4 left-4">
+          <button
+            onClick={handleBack}
+            className="bg-gray-500 text-white font-bold py-2 px-4 rounded"
+          >
+            返回
+          </button>
+        </div>
+        {/*...其他代码*/}
+      </div>
       <div>
         <div className="mb-8 flex items-center justify-center">
           {/* 替换为您的实际 logo */}
@@ -46,14 +65,14 @@ const LoginPage = () => {
         </div>
         <input
           type="text"
-          placeholder="Username"
+          placeholder="手机号"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           className="block w-full bg-gray-100 rounded mb-4 p-2"
         />
         <input
           type="password"
-          placeholder="Password"
+          placeholder="密码"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           className="block w-full bg-gray-100 rounded mb-4 p-2"
@@ -64,7 +83,10 @@ const LoginPage = () => {
         >
           登录
         </button>
-        <button className="block w-full bg-gray-300 rounded text-white font-bold py-2 px-4">
+        <button
+          onClick={handleRegiste}
+          className="block w-full bg-gray-300 rounded text-white font-bold py-2 px-4"
+        >
           注册
         </button>
       </div>
