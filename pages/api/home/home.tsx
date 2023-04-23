@@ -33,6 +33,7 @@ import { Prompt } from '@/types/prompt';
 import { Chat } from '@/components/Chat/Chat';
 import { Chatbar } from '@/components/Chatbar/Chatbar';
 import { Navbar } from '@/components/Mobile/Navbar';
+import LoginQR from '@/components/Overlay/LoginQR';
 import Promptbar from '@/components/Promptbar';
 
 import HomeContext from './home.context';
@@ -341,6 +342,7 @@ const Home = ({
     serverSideApiKeyIsSet,
     serverSidePluginKeysSet,
   ]);
+  const qrCodeUrl = '/ali_pay.png';
 
   return (
     <HomeContext.Provider
@@ -363,6 +365,7 @@ const Home = ({
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <LoginQR qrCodeUrl={qrCodeUrl} />
       {selectedConversation && (
         <main
           className={`flex h-screen w-screen flex-col text-sm text-white dark:text-white ${lightMode}`}

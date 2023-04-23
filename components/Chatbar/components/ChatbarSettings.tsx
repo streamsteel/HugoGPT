@@ -45,7 +45,7 @@ export const ChatbarSettings = () => {
   const router = useRouter();
 
   const turnToUserProfile = () => {
-    const jwt = Cookies.get('jwt');
+    const jwt = Cookies.get('access_token');
 
     if (jwt) {
       router.push('/profile');
@@ -68,11 +68,11 @@ export const ChatbarSettings = () => {
         onClick={() => handleExportData()}
       />
 
-      <SidebarButton
+      {/* <SidebarButton
         text={t('User Profile')}
         icon={<IconUser size={18} />}
         onClick={() => turnToUserProfile()}
-      />
+      /> */}
 
       <SidebarButton
         text={lightMode === 'light' ? t('Dark mode') : t('Light mode')}

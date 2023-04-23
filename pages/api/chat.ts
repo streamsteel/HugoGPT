@@ -55,7 +55,7 @@ const handler = async (req: Request): Promise<Response> => {
 
     // get jwt from cookie on server side
     const cookies = cookie.parse(req.headers.get("cookie") || '');
-    const jwt: string = cookies.jwt;
+    const jwt: string = cookies.access_token;
 
     const stream = await OpenAIStream(model, promptToSend, temperatureToUse, key, messagesToSend, jwt);
 
